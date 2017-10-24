@@ -1,9 +1,19 @@
 #!/usr/bin/env python
 #-*- cofing : utf-8 -*-
 
+"""
+    Author : Flower
+    Time attack
+        2017.10.14 ~
+    Start Log
+        2017.10.14  [start]
+        2017.10.22  [A] asyncio
+"""
+
 import os
 import sys
 import psutil
+import asyncio
 import platform
 import configparser as cp
 
@@ -35,7 +45,7 @@ class LogSender():
         self.connected  = False
         self.sock       = None
 
-    def main(self):
+    async def main(self):
         while True:
             while self.mgmt_key:
                 self.set_conn(self.local_ip, self.local_port)
@@ -55,16 +65,19 @@ class LogSender():
             while True:
                 if self.col_key:
                     log_cnt += 1
-                    self.send_data(('[%d] First MSG'%log_cnt).encode(), self.col_ip, self.col_port)
+                    log_init = 'SENDER01,127.0.0.1:30003,name|work'
+                    self.send_data(('[%s]'%log_init).encode(), self.col_ip, self.col_port)
                     self.col_key = False
                 else:
                     for i in range(randint(4, 10)):
                         log_cnt += 1
-                        self.send_data(('[%d] test'%log_cnt).encode(), self.col_ip, self.col_port)
-                    sleep(1)
+                        log_msg = await get_log()
+                        self.send_data(('%s'%log_msg).encode(), self.col_ip, self.col_port)
+                    sleep(1) # test
 
-    def get_log(self):
-        pass
+#WatchDog
+    async def get_log(self):
+        return log_msg
 
     def set_conn(self, h, p):
         try:

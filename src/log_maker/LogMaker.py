@@ -1,5 +1,13 @@
 #-*- coding : utf-8 -*-
 
+"""
+    Author : Flower
+    Time attack
+        2017.10.14 ~
+    Start Log
+        2017.10.14  [start]
+        2017.10.22  [M] log_cnt
+"""
 
 import os
 import sys
@@ -34,8 +42,8 @@ class LogMaker():
             try:
                 res_rs = self.get_resource()
                 for n in range(randint(5,10)):
+                    log_cnt += 1
                     for i, f in enumerate(f_set):
-                        log_cnt += 1
                         temp_log_cnt = str(log_cnt).zfill(8)
                         f.write(pattern[i] % (ctime(), temp_log_cnt, res_rs['cpu'], res_rs['memory'], res_rs['swap'], res_rs['disk']))
                 sleep(randint(1,3))
@@ -46,28 +54,33 @@ class LogMaker():
 
     def get_file(self):
         f = []
+        # Default 4 files
         for i in range(4):
             f.append(open(os.path.join(file_path, file_name + str(i) + '.log'), 'a'))
         return f
 
     def get_resource(self):
         res_info = {}
+        # CPU info
         temp_str = str(platform.processor())
         temp_str += '#' + str(psutil.cpu_count())
         temp_str += '#' + str(psutil.cpu_times_percent())
         res_info['cpu'] = temp_str
+        # Memory info
         mem = psutil.virtual_memory()
         temp_str = str(mem.total/1024)
         temp_str += '#' + str(mem.used/1024)
         temp_str += '#' + str(mem.free/1024)
         temp_str += '#' + str(mem.percent)
         res_info['memory'] = temp_str
+        # Swap info
         swap = psutil.swap_memory()
         temp_str = str(swap.total/1024)
         temp_str += '#' + str(swap.used/1024)
         temp_str += '#' + str(swap.free/1024)
         temp_str += '#' + str(swap.percent)
         res_info['swap'] = temp_str
+        # Disk info
         disk = psutil.disk_partitions()
         disk_info = psutil.disk_usage(disk[0].mountpoint)
         temp_str = str(disk_info.total/1024)
