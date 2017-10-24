@@ -5,7 +5,7 @@
     Author : Flower
     Time attack
         2017.10.14 ~
-    Start Log
+    Start log
         2017.10.14  [start]
         2017.10.22  [A] asyncio
 """
