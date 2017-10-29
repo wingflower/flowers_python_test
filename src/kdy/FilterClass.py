@@ -13,6 +13,10 @@ import psycopg2
 import configparser
 
 
+#from GetQueryset import get_log_queryset as log_qs01
+#from GetQueryset import get_re_queryset as re_qs01
+
+
 class FilterClass():
     def __init__(self):
         pass
@@ -40,7 +44,6 @@ class FilterClass():
         return re.compile(r'%s' % self.get_config('re'))
 
     def set_re(self):
-        pass
 
     def get_redis(self):
         return redis.Redis(host='%s', port=%d, db=%d % self.get_config('redis'))
@@ -49,20 +52,11 @@ class FilterClass():
         conn_str = "db_name='%s' user='%s' host='%s' password='%s'"
         conn_str = conn_str % self.get_config('db')
         self.conn = psycopg2.connect(conn_str)
-        return cursor = self.conn.cursor()
+        self.cursor = self.conn.cursor()
 
     def close_cur(self, cursor):
-        cursor.close()
+        self.cursor.close()
         self.conn_close()
-
-    def select_sender(self):
-        pass
-
-    def create_table(self):
-        pass
-
-    def insert_log(self):
-        pass
 
     def run(self):
         pass
