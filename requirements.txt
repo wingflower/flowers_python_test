@@ -1,1 +1,2 @@
 psycopg2==2.7.3
+watchdog==0.8.4
