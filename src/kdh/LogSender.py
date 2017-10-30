@@ -15,6 +15,7 @@ import sys
 import psutil
 import asyncio
 import platform
+import FlowerWatchdog
 import configparser as cp
 
 from socket import *
@@ -45,7 +46,7 @@ class LogSender():
         self.connected  = False
         self.sock       = None
 
-    async def main(self):
+    def main(self):
         while True:
             while self.mgmt_key:
                 self.set_conn(self.local_ip, self.local_port)
@@ -62,6 +63,7 @@ class LogSender():
                     self.close_conn()
             self.set_conn(self.local_ip, self.local_port)
             log_cnt = 0
+            fw = FlowerWatchdog(self.log_path)
             while True:
                 if self.col_key:
                     log_cnt += 1
@@ -69,15 +71,10 @@ class LogSender():
                     self.send_data(('[%s]'%log_init).encode(), self.col_ip, self.col_port)
                     self.col_key = False
                 else:
-                    for i in range(randint(4, 10)):
-                        log_cnt += 1
-                        log_msg = await get_log()
-                        self.send_data(('%s'%log_msg).encode(), self.col_ip, self.col_port)
-                    sleep(1) # test
-
-#WatchDog
-    async def get_log(self):
-        return log_msg
+                    log_cnt += 1
+                    if fw.get_line_changed():
+                        for log_msg in fw.get_line_log():
+                            self.send_data(('%s'%log_msg[:-1]).encode(), self.col_ip, self.col_port)
 
     def set_conn(self, h, p):
         try:
