@@ -1,5 +1,13 @@
 #-*- coding : utf-8 -*-
 
+"""
+    Author : Flower
+    Time attack
+        2017.10.30 ~
+    Start log
+        2017.10.30  [start]
+"""
+
 import sys
 import time
 
