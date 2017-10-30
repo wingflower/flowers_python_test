@@ -1,0 +1,9 @@
+[localhost]
+local_ip = 127.0.0.1
+local_port = 30001
+
+[log_info]
+log_path = /home/pi/flower/python3/log_maker/flower_log0.log
+
+[watchdog]
+all_data = 0
