@@ -41,7 +41,8 @@ class udp_server():
                 parse_data = self.parsing_data()
                 print('parse_data:',str(parse_data))
                 #self.cursor = self.set_connection()
-                self.set_connection()
+
+                self.set_connection() # set conn, cursor
                 self.cursor.execute(parse_data['final_query'])
                 self.conn.commit()
                 res = self.cursor.fetchall()
@@ -75,7 +76,7 @@ class udp_server():
 
 
     def set_connection(self):
-        conn_string = "host='127.0.0.1' dbname='gwagdoyeob' user='postgres' password='1111' port='5432' "
+        conn_string = "host='127.0.0.1' dbname='postgres' user='postgres' password='1111' port='5430' "
         print("connecting to DB")
 
         self.conn = psycopg2.connect(conn_string)
