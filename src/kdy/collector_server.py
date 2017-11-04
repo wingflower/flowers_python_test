@@ -5,7 +5,6 @@ import os
 import udp_query
 from psycopg2.extras import RealDictCursor
 
-
 HOST = '127.0.0.1'
 #HOST = '192.168.1.10'
 PORT = 30003
