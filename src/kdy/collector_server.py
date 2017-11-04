@@ -1,3 +1,10 @@
+'''
+    writer : rhkrehduq
+    start_date : 2017.10 .....
+'''
+
+
+
 from socket import *
 import psycopg2
 import sys
@@ -23,6 +30,8 @@ class udp_server():
         self.c_addr = None
         self.c_data = None
         self.clients = {} # manage clients
+        self.cursor = None
+        self.conn = None
 
 
     def run(self):
@@ -31,10 +40,11 @@ class udp_server():
                 self.get_data()
                 parse_data = self.parsing_data()
                 print('parse_data:',str(parse_data))
-                cursor = self.set_connection()
+                #self.cursor = self.set_connection()
 
-                cursor.execute(parse_data['final_query'])
-                res = cursor.fetchall()
+                self.cursor.execute(parse_data['final_query'])
+                self.conn.commit()
+                res = self.cursor.fetchall()
                 print('executed_query: ',res)
 
                 print(parse_data['client_id'])
@@ -68,11 +78,9 @@ class udp_server():
         conn_string = "host='127.0.0.1' dbname='gwagdoyeob' user='postgres' password='1111' port='5432' "
         print("connecting to DB")
 
-        conn = psycopg2.connect(conn_string)
-        cursor = conn.cursor(cursor_factory=RealDictCursor)
+        self.conn = psycopg2.connect(conn_string)
+        self.cursor = conn.cursor(cursor_factory=RealDictCursor)
         print("connected!")
-        conn.commit()
-        return cursor
 
     def parsing_data(self):
         parsed_data = self.c_data.decode().split(',')
