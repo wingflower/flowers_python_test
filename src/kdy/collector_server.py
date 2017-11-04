@@ -41,7 +41,7 @@ class udp_server():
                 parse_data = self.parsing_data()
                 print('parse_data:',str(parse_data))
                 #self.cursor = self.set_connection()
-
+                self.set_connection()
                 self.cursor.execute(parse_data['final_query'])
                 self.conn.commit()
                 res = self.cursor.fetchall()
