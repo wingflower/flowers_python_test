@@ -22,8 +22,8 @@ class FilterClass():
         pass
 
     def get_config(self, keyword):
-            cf = configparser.ConfigParser()
-            cf.config('./config.ini')
+        cf = configparser.ConfigParser()
+        cf.config('./config.ini')
         if keyword.lower() is 'default':
             pass
         elif keyword.lower() is 'db':
@@ -31,6 +31,7 @@ class FilterClass():
             user    = cf['db']['user']
             host    = cf['db']['host']
             passwd  = cf['db']['passwd']
+            port    = cf['db']['port']
             return db_name, user, host, passwd
         elif keyword.lower() is 'redis':
             host = cf['redis']['host']
@@ -44,9 +45,10 @@ class FilterClass():
         return re.compile(r'%s' % self.get_config('re'))
 
     def set_re(self):
+        pass
 
     def get_redis(self):
-        return redis.Redis(host='%s', port=%d, db=%d % self.get_config('redis'))
+        return redis.Redis(host='%s', port='%d', db='%d' % self.get_config('redis'))
 
     def get_cur(self):
         conn_str = "db_name='%s' user='%s' host='%s' password='%s'"

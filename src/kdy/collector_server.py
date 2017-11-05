@@ -83,34 +83,65 @@ class udp_server():
         self.cursor = conn.cursor(cursor_factory=RealDictCursor)
         print("connected!")
 
+
     def parsing_data(self):
+        '''
+            explain : confirm new user or not
+                      if new user then create new table
+                      else insert data
+
+                     if first get data to start  "client_id"
+
+        '''
         parsed_data = self.c_data.decode().split(',')
         print('parsed_data:',parsed_data)
         print('addr : ',self.c_addr)
         # add reg expression
 
         parse_dic = {}
-        client_id = parsed_data[0] + ',' + SLEEP_TIME
-        columns = parsed_data[2].split('|')
-        columns_query = ' id bigserial primary key,  '
+        if parsed_data[0] == 'log': # list.pop() ???  end of list ??
+            # insert log data
+            # insert client_id table
+            # must get table_name (client_id)
+            client_id = parsed_data[1]
+            insert_data = parsed_data[2].split('|')       # must fix to insert columns's data
 
-        for col in columns:
-            columns_query += """ {0} text,""".format(col)
-        columns_query = columns_query[:-1]
-        print('colquery : ', columns_query)
+            insert_query = ""
+            if len(insert_data) > 0:
+                for insert_col in insert_data:
+                    insert_query += " " + insert_col + " ,"
+                insert_query = insert_query[:-1]
 
-        final_query = """
-            create table {0} (
-                {1}
-            );
-            select 1 as res ;
-        """.format(client_id[:-3],columns_query)
-        print('final_query : ',final_query)
+                final_query = """
+                    insert into {0} (data_log, client_id, logged_time, insert_time)
+                    values ({1})
+                """.format(client_id, insert_query)
+        else :
+            # create table
+            client_id = parsed_data[0] + ',' + SLEEP_TIME
+            columns = parsed_data[2].split('|')
+            columns_query = ' id bigserial primary key,  '
+
+            if len(columns) > 0:
+                for col in columns:
+                    columns_query += " " + col  + " text, "
+
+                final_query = """
+                    create table {0} (
+                        {1}
+                    );
+
+                    select 'success' as res ;
+                """.format(client_id[:-3],columns_query) # client_id[:-3] :  fix sleep time is less then 100
+                print('final_query : ',final_query)
 
         parse_dic['client_id'] = client_id
         parse_dic['final_query'] = final_query
         return parse_dic
 
+    def close_conn():
+        self.cursor.close()
+        self.conn.close()
 
 if __name__ == '__main__':
     kdy_server = udp_server()
