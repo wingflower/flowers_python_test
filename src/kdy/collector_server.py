@@ -1,10 +1,8 @@
 '''
     writer : rhkrehduq
     start_date : 2017.10 .....
+    last_modified : 2017.11.17
 '''
-
-
-
 from socket import *
 import psycopg2
 import sys
