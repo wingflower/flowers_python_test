@@ -9,7 +9,6 @@
 """
 
 
-
 class CollectorController():
     def __init__(self):
         pass
