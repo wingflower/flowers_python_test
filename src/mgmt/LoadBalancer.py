@@ -15,7 +15,19 @@ class LoadBalancer():
     def get_sender_rank(self):
         pass
 
+    def set_sender_rank(self):
+        pass
+
     def get_collector_rank(self):
+        pass
+
+    def set_collector_rank(self):
+        pass
+
+    def cal_sender_rank(self):
+        pass
+
+    def cal_collector_rank(self):
         pass
 
     def run(self):
