@@ -12,6 +12,9 @@ class MgmtAgent():
     def __init__(self):
         pass
 
+    def main(self):
+        pass
+
     def start_agent(self):
         pass
 

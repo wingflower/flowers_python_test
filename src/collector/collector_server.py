@@ -1,8 +1,12 @@
-'''
-    writer : rhkrehduq
-    start_date : 2017.10 .....
-    last_modified : 2017.11.17
-'''
+#-*- coding : utf-8 -*-
+"""
+    Author : Flower
+    Time attack
+        2017.10.10 ~
+    Start log
+        2017.10.10  [start]
+"""
+
 from socket import *
 import psycopg2
 import sys
@@ -10,11 +14,13 @@ import os
 import udp_query
 from psycopg2.extras import RealDictCursor
 
+
 HOST = '127.0.0.1'
 #HOST = '192.168.1.10'
 PORT = 30003
 BUFSIZE = 1024
 SLEEP_TIME = '99'
+
 
 class udp_server():
     def __init__(self):
