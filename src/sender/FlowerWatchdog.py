@@ -21,7 +21,7 @@ class FlowerWatchdog():
         f = open(self.path, 'r')
         temp_cnt = len(f.readlines())
         f.close()
-        if self.log_cnt == temp_cnt
+        if self.log_cnt == temp_cnt:
             return True
         else:
             self.log_cnt = temp_cnt
@@ -31,7 +31,7 @@ class FlowerWatchdog():
         f = open(self.path, 'r')
         temp_data = f.readlines()
         f.close()
-        if self.log_data == temp_data
+        if self.log_data == temp_data:
             return True
         else:
             self.log_data = temp_data
@@ -42,6 +42,8 @@ class FlowerWatchdog():
         temp_data = f.readline()
         temp_cnt = self.log_cnt
         self.log_cnt = len(temp_data)
+        if temp_cnt > self.log_cnt:
+            return temp_data[:-1]
         return temp_data[temp_cnt-1:-1]
 
     def get_data_log(self,):

@@ -12,6 +12,27 @@ class DBController():
     def __init__(self):
         pass
 
+    def main(self):
+        pass
+
+    def account_maker(self):
+        pass
+
+    def db_maker(self):
+        pass
+
+    def schema_maker(self):
+        pass
+
+    def run_dbms(self):
+        pass
+
+    def check_dbms(self):
+        pass
+
+    def kill_dbms(self):
+        pass
+
     def run(self):
         pass
 
