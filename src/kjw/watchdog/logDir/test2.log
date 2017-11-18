@@ -1,0 +1,4 @@
+DEBUG:__main__:SELECT * from teacher
+DEBUG:__main__:SELECT * from teacher
+DEBUG:__main__:CREATE TABLE DEP(ID integer,DEP CHAR(50),EMP CHAR(50))
+DEBUG:__main__:CREATE TABLE DEPT(ID integer,DEP CHAR(50),EMP CHAR(50))

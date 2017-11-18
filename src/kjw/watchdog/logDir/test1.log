@@ -1,0 +1,5 @@
+DEBUG:__main__:INSERT INTO teacher(name,jumin) VALUES('AUDI','1111')
+DEBUG:__main__:SELECT * from teacher
+DEBUG:__main__:INSERT INTO teacher(name,jumin) VALUES('AUDI','1111')
+DEBUG:__main__:INSERT INTO teacher(name,jumin) VALUES('AUDI','1111')
+DEBUG:__main__:SELECT * from teacher
