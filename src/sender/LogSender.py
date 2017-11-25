@@ -23,7 +23,7 @@ from time import sleep
 from random import randint
 
 
-file_name = 'log_config'
+file_name = 'sender_config'
 file_path = os.path.dirname(os.path.abspath(__file__))
 
 BUFSIZE = 1024

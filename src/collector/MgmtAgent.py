@@ -9,14 +9,14 @@
 
 
 class MgmtAgent():
-    def __init__(self):
-        pass
+    def __init__(self, ip, port):
+        self.ms_ip = ip
+        self.ms_port = port
 
     def main(self):
         pass
 
     def start_agent(self):
-        pass
 
     def run_collector(self):
         pass
